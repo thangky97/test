@@ -1,0 +1,5 @@
+<map id="inheritance540fff8c3a" name="inheritance540fff8c3a">
+<area shape="rect" id="node1" href="sampler/index.html#openjij.sampler.sampler.BaseSampler" target="_top" title="Base sampler class of python wrapper for cxxjij simulator." alt="" coords="129,5,237,31"/>
+<area shape="rect" id="node3" href="sa_sampler/index.html#openjij.sampler.sa_sampler.SASampler" target="_top" title="Sampler with Simulated Annealing (SA)." alt="" coords="285,5,380,31"/>
+<area shape="rect" id="node2" title="Abstract base class for dimod samplers." alt="" coords="5,5,81,31"/>
+</map>

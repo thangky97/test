@@ -1,0 +1,836 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>openjij.utils.benchmark &#8212; OpenJij Book</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/katex-math.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script src="../../../_static/tabs.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <link rel="canonical" href="https://openjij.github.io/OpenJij-Documentation/_modules/openjij/utils/benchmark.html" />
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../../_static/OpenJij-Logo.webp" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">OpenJij Book</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  OpenJij API Reference
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../reference/openjij/index.html">
+   <code class="xref py py-mod docutils literal notranslate">
+    <span class="pre">
+     openjij
+    </span>
+   </code>
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../../reference/openjij/model/index.html">
+     <code class="xref py py-mod docutils literal notranslate">
+      <span class="pre">
+       openjij.model
+      </span>
+     </code>
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+    <label for="toctree-checkbox-2">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../reference/openjij/model/chimera_model/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         openjij.model.chimera_model
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../reference/openjij/model/king_graph/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         openjij.model.king_graph
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../reference/openjij/model/model/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         openjij.model.model
+        </span>
+       </code>
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../../reference/openjij/sampler/index.html">
+     <code class="xref py py-mod docutils literal notranslate">
+      <span class="pre">
+       openjij.sampler
+      </span>
+     </code>
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+    <label for="toctree-checkbox-3">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../../reference/openjij/sampler/chimera_gpu/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         openjij.sampler.chimera_gpu
+        </span>
+       </code>
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+      <label for="toctree-checkbox-4">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../reference/openjij/sampler/chimera_gpu/base_gpu_chimera/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           openjij.sampler.chimera_gpu.base_gpu_chimera
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../reference/openjij/sampler/chimera_gpu/gpu_sa_sampler/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           openjij.sampler.chimera_gpu.gpu_sa_sampler
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../reference/openjij/sampler/chimera_gpu/gpu_sqa_sampler/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           openjij.sampler.chimera_gpu.gpu_sqa_sampler
+          </span>
+         </code>
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../reference/openjij/sampler/csqa_sampler/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         openjij.sampler.csqa_sampler
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../reference/openjij/sampler/response/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         openjij.sampler.response
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../reference/openjij/sampler/sa_sampler/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         openjij.sampler.sa_sampler
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../reference/openjij/sampler/sampler/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         openjij.sampler.sampler
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../reference/openjij/sampler/sqa_sampler/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         openjij.sampler.sqa_sampler
+        </span>
+       </code>
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../../reference/openjij/utils/index.html">
+     <code class="xref py py-mod docutils literal notranslate">
+      <span class="pre">
+       openjij.utils
+      </span>
+     </code>
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+    <label for="toctree-checkbox-5">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../reference/openjij/utils/benchmark/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         openjij.utils.benchmark
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../reference/openjij/utils/decorator/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         openjij.utils.decorator
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../reference/openjij/utils/graph_utils/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         openjij.utils.graph_utils
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../reference/openjij/utils/res_convertor/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         openjij.utils.res_convertor
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../reference/openjij/utils/time_measure/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         openjij.utils.time_measure
+        </span>
+       </code>
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../reference/openjij/variable_type/index.html">
+     <code class="xref py py-mod docutils literal notranslate">
+      <span class="pre">
+       openjij.variable_type
+      </span>
+     </code>
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  OpenJij Tutorial
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../tutorial/en/003-JijModeling_with_OpenJij.html">
+   1. 3-JijModeling with OpenJij
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../tutorial/en/006-Machine_Learning_by_QA.html">
+   2. 6-Machine Learning (QBoost) with Quantum Annealing
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../tutorial/en/index.html">
+   3. OpenJij Tutorials
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  OpenJij チュートリアル
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../tutorial/ja/graph_coloring.html">
+   1. グラフ彩色問題
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../tutorial/ja/index.html">
+   2. OpenJij チュートリアル
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../tutorial/ja/knapsack.html">
+   3. ナップサック問題
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/OpenJij/OpenJij"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/OpenJij/OpenJij/issues/new?title=Issue%20on%20page%20%2F_modules/openjij/utils/benchmark.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1></h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <h1>Source code for openjij.utils.benchmark</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright 2021 Jij Inc.</span>
+
+<span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c1"># you may not use this file except in compliance with the License.</span>
+<span class="c1"># You may obtain a copy of the License at</span>
+
+<span class="c1">#     http://www.apache.org/licenses/LICENSE-2.0</span>
+
+<span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c1"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c1"># See the License for the specific language governing permissions and</span>
+<span class="c1"># limitations under the License.</span>
+
+<span class="kn">import</span> <span class="nn">inspect</span>
+
+<span class="kn">from</span> <span class="nn">logging</span> <span class="kn">import</span> <span class="n">getLogger</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="solver_benchmark"><a class="viewcode-back" href="../../../reference/openjij/utils/index.html#openjij.solver_benchmark">[docs]</a><span class="k">def</span> <span class="nf">solver_benchmark</span><span class="p">(</span>
+    <span class="n">solver</span><span class="p">,</span>
+    <span class="n">time_list</span><span class="p">,</span>
+    <span class="n">solutions</span><span class="o">=</span><span class="p">[],</span>
+    <span class="n">args</span><span class="o">=</span><span class="p">{},</span>
+    <span class="n">p_r</span><span class="o">=</span><span class="mf">0.99</span><span class="p">,</span>
+    <span class="n">ref_energy</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">measure_with_energy</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">time_name</span><span class="o">=</span><span class="s2">&quot;execution_time&quot;</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Calculate &#39;success probability&#39;, &#39;TTS&#39;, &#39;Residual energy&#39;,&#39;Standard Error&#39; with computation time</span>
+<span class="sd">    Args:</span>
+<span class="sd">        solver (callable): returns openjij.Response, and solver has arguments &#39;time&#39; and &#39;**args&#39;</span>
+<span class="sd">        time_list (list):</span>
+<span class="sd">        solutions (list(list(int)), list(int)): true solution or list of solution (if solutions are degenerated).</span>
+<span class="sd">        args (dict): Arguments for solver.</span>
+<span class="sd">        p_r (float): Thereshold probability for time to solutions.</span>
+<span class="sd">        ref_energy (float): The ground (reference to calculate success probability and the residual energy) energy.</span>
+<span class="sd">        measure_with_energy (bool): use a energy as measure for success</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        dict: dictionary which has the following keys:</span>
+
+<span class="sd">        * **time**: list of compuation time</span>
+<span class="sd">        * **success_prob** list of success probability at each computation time</span>
+<span class="sd">        * **tts**: list of time to solusion at each computation time</span>
+<span class="sd">        * **residual_energy**: list of residual energy at each computation time</span>
+<span class="sd">        * **se_lower_tts**: list of tts&#39;s lower standard error at each computation time</span>
+<span class="sd">        * **se_upper_tts**: list of tts&#39;s upper standard error at each computation time</span>
+<span class="sd">        * **se_success_prob**: list of success probability&#39;s standard error at each computation time</span>
+<span class="sd">        * **se_residual_energy**: list of residual_energy&#39;s standard error at each computation time</span>
+<span class="sd">        * **info** (dict): Parameter information for the benchmark</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">measure_with_energy</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">solutions</span> <span class="o">==</span> <span class="p">[]:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;need input &#39;solutions&#39;: (list(list))&quot;</span><span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;function &quot;</span> <span class="o">+</span> <span class="n">inspect</span><span class="o">.</span><span class="n">currentframe</span><span class="p">()</span><span class="o">.</span><span class="n">f_code</span><span class="o">.</span><span class="n">co_name</span> <span class="o">+</span> <span class="s2">&quot; start&quot;</span><span class="p">)</span>
+
+    <span class="n">computation_times</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">success_probabilities</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">tts_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">residual_energies</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="n">se_lower_tts_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">se_upper_tts_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">se_success_prob_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">se_residual_energy_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">time</span> <span class="ow">in</span> <span class="n">time_list</span><span class="p">:</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">solver</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="o">**</span><span class="n">args</span><span class="p">)</span>
+
+        <span class="n">comp_time</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="n">time_name</span><span class="p">]</span>
+        <span class="n">computation_times</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">comp_time</span><span class="p">)</span>
+
+        <span class="n">ps</span> <span class="o">=</span> <span class="n">success_probability</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">solutions</span><span class="p">,</span> <span class="n">ref_energy</span><span class="p">,</span> <span class="n">measure_with_energy</span><span class="p">)</span>
+        <span class="n">tts</span> <span class="o">=</span> <span class="n">time_to_solution</span><span class="p">(</span><span class="n">ps</span><span class="p">,</span> <span class="n">comp_time</span><span class="p">,</span> <span class="n">p_r</span><span class="p">)</span>
+
+        <span class="n">success_probabilities</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ps</span><span class="p">)</span>
+        <span class="n">tts_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tts</span><span class="p">)</span>
+        <span class="n">residual_energies</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">residual_energy</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">ref_energy</span><span class="p">))</span>
+
+        <span class="n">se_ps</span> <span class="o">=</span> <span class="n">se_success_probability</span><span class="p">(</span>
+            <span class="n">response</span><span class="p">,</span> <span class="n">solutions</span><span class="p">,</span> <span class="n">ref_energy</span><span class="p">,</span> <span class="n">measure_with_energy</span>
+        <span class="p">)</span>
+
+        <span class="n">se_success_prob_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">se_ps</span><span class="p">)</span>
+        <span class="n">se_lower_tts_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">se_lower_tts</span><span class="p">(</span><span class="n">tts</span><span class="p">,</span> <span class="n">ps</span><span class="p">,</span> <span class="n">comp_time</span><span class="p">,</span> <span class="n">p_r</span><span class="p">,</span> <span class="n">se_ps</span><span class="p">))</span>
+        <span class="n">se_upper_tts_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">se_upper_tts</span><span class="p">(</span><span class="n">tts</span><span class="p">,</span> <span class="n">ps</span><span class="p">,</span> <span class="n">comp_time</span><span class="p">,</span> <span class="n">p_r</span><span class="p">,</span> <span class="n">se_ps</span><span class="p">))</span>
+        <span class="n">se_residual_energy_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">se_residual_energy</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">ref_energy</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="n">computation_times</span><span class="p">,</span>
+        <span class="s2">&quot;success_prob&quot;</span><span class="p">:</span> <span class="n">success_probabilities</span><span class="p">,</span>
+        <span class="s2">&quot;tts&quot;</span><span class="p">:</span> <span class="n">tts_list</span><span class="p">,</span>
+        <span class="s2">&quot;residual_energy&quot;</span><span class="p">:</span> <span class="n">residual_energies</span><span class="p">,</span>
+        <span class="s2">&quot;se_lower_tts&quot;</span><span class="p">:</span> <span class="n">se_lower_tts_list</span><span class="p">,</span>
+        <span class="s2">&quot;se_upper_tts&quot;</span><span class="p">:</span> <span class="n">se_upper_tts_list</span><span class="p">,</span>
+        <span class="s2">&quot;se_success_prob&quot;</span><span class="p">:</span> <span class="n">se_success_prob_list</span><span class="p">,</span>
+        <span class="s2">&quot;se_residual_energy&quot;</span><span class="p">:</span> <span class="n">se_residual_energy_list</span><span class="p">,</span>
+        <span class="s2">&quot;info&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;tts_threshold_prob&quot;</span><span class="p">:</span> <span class="n">p_r</span><span class="p">,</span>
+            <span class="s2">&quot;ref_energy&quot;</span><span class="p">:</span> <span class="n">ref_energy</span><span class="p">,</span>
+            <span class="s2">&quot;measure_with_energy&quot;</span><span class="p">:</span> <span class="n">measure_with_energy</span><span class="p">,</span>
+        <span class="p">},</span>
+    <span class="p">}</span></div>
+
+
+<div class="viewcode-block" id="residual_energy"><a class="viewcode-back" href="../../../reference/openjij/utils/index.html#openjij.residual_energy">[docs]</a><span class="k">def</span> <span class="nf">residual_energy</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">ref_energy</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Calculate redisual energy from measure energy</span>
+<span class="sd">    Args:</span>
+<span class="sd">        response (openjij.Response): response from solver (or sampler).</span>
+<span class="sd">        ref_energy (float): the reference energy (usually use the ground energy)</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        float: Residual energy which is defined as :math:`\\langle E \\rangle - E_0` (:math:`\\langle...\\rangle` represents average, :math:`E_0` is the reference energy (usually use the ground energy)).</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">energies</span><span class="p">)</span> <span class="o">-</span> <span class="n">ref_energy</span></div>
+
+
+<div class="viewcode-block" id="se_residual_energy"><a class="viewcode-back" href="../../../reference/openjij/utils/index.html#openjij.se_residual_energy">[docs]</a><span class="k">def</span> <span class="nf">se_residual_energy</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">ref_energy</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Calculate redisual energy&#39;s standard error from measure energy</span>
+<span class="sd">    Args:</span>
+<span class="sd">        response (openjij.Response): response from solver (or sampler).</span>
+<span class="sd">        ref_energy (float): the reference energy (usually use the ground energy)</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        float: redisual energy&#39;s standard error from measure energy</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">energies</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="success_probability"><a class="viewcode-back" href="../../../reference/openjij/utils/index.html#openjij.success_probability">[docs]</a><span class="k">def</span> <span class="nf">success_probability</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">solutions</span><span class="p">,</span> <span class="n">ref_energy</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">measure_with_energy</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Calculate success probability from openjij.response</span>
+<span class="sd">    Args:</span>
+<span class="sd">        response (openjij.Response): response from solver (or sampler).</span>
+<span class="sd">        solutions (list[int]): true solutions.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        float: Success probability.</span>
+
+<span class="sd">        * When measure_with_energy is False, success is defined as getting the same state as solutions.</span>
+<span class="sd">        * When measure_with_energy is True, success is defined as getting a state which energy is below reference energy</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">measure_with_energy</span><span class="p">:</span>
+        <span class="n">suc_prob</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">count_nonzero</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">energies</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">ref_energy</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span>
+            <span class="n">response</span><span class="o">.</span><span class="n">energies</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">solutions</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="n">sampled_states</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">samples</span><span class="p">()</span>
+            <span class="n">suc_prob</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span>
+                <span class="p">[</span><span class="mi">1</span> <span class="k">if</span> <span class="nb">dict</span><span class="p">(</span><span class="n">state</span><span class="p">)</span> <span class="ow">in</span> <span class="n">solutions</span> <span class="k">else</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">sampled_states</span><span class="p">]</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">sampled_states</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">states</span>
+            <span class="n">suc_prob</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span>
+                <span class="p">[</span><span class="mi">1</span> <span class="k">if</span> <span class="nb">list</span><span class="p">(</span><span class="n">state</span><span class="p">)</span> <span class="ow">in</span> <span class="n">solutions</span> <span class="k">else</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">sampled_states</span><span class="p">]</span>
+            <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">suc_prob</span></div>
+
+
+<div class="viewcode-block" id="se_success_probability"><a class="viewcode-back" href="../../../reference/openjij/utils/index.html#openjij.se_success_probability">[docs]</a><span class="k">def</span> <span class="nf">se_success_probability</span><span class="p">(</span>
+    <span class="n">response</span><span class="p">,</span> <span class="n">solutions</span><span class="p">,</span> <span class="n">ref_energy</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">measure_with_energy</span><span class="o">=</span><span class="kc">False</span>
+<span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Calculate success probability&#39;s standard error from openjij.response</span>
+<span class="sd">    Args:</span>
+<span class="sd">        response (openjij.Response): response from solver (or sampler).</span>
+<span class="sd">        solutions (list[int]): true solutions.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        float: Success probability&#39;s standard error.</span>
+
+<span class="sd">        * When measure_with_energy is False, success is defined as getting the same state as solutions.</span>
+<span class="sd">        * When measure_with_energy is True, success is defined as getting a state which energy is below reference energy</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">measure_with_energy</span><span class="p">:</span>
+        <span class="n">se_suc_prob</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">count_nonzero</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">energies</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">ref_energy</span><span class="p">)</span>
+            <span class="o">/</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">energies</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">solutions</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="n">sampled_states</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">samples</span><span class="p">()</span>
+            <span class="n">se_suc_prob</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span>
+                <span class="p">[</span><span class="mi">1</span> <span class="k">if</span> <span class="nb">dict</span><span class="p">(</span><span class="n">state</span><span class="p">)</span> <span class="ow">in</span> <span class="n">solutions</span> <span class="k">else</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">sampled_states</span><span class="p">]</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">sampled_states</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">states</span>
+            <span class="n">se_suc_prob</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span>
+                <span class="p">[</span><span class="mi">1</span> <span class="k">if</span> <span class="nb">list</span><span class="p">(</span><span class="n">state</span><span class="p">)</span> <span class="ow">in</span> <span class="n">solutions</span> <span class="k">else</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">sampled_states</span><span class="p">]</span>
+            <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">se_suc_prob</span></div>
+
+
+<div class="viewcode-block" id="time_to_solution"><a class="viewcode-back" href="../../../reference/openjij/utils/index.html#openjij.time_to_solution">[docs]</a><span class="k">def</span> <span class="nf">time_to_solution</span><span class="p">(</span><span class="n">success_prob</span><span class="p">,</span> <span class="n">computation_time</span><span class="p">,</span> <span class="n">p_r</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Args:</span>
+<span class="sd">        success_prob (float): success probability.</span>
+<span class="sd">        computation_time (float):</span>
+<span class="sd">        p_r (float): thereshold probability to calculate time to solution.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        float: time to solution :math:`\\tau * \\log(1-pr)/\\log(1-ps)` which pr is thereshold probability, ps is success probability and :math:`tau` is computation time.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">success_prob</span> <span class="o">==</span> <span class="mf">1.0</span><span class="p">:</span>
+        <span class="n">tts</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="k">elif</span> <span class="n">success_prob</span> <span class="o">==</span> <span class="mf">0.0</span><span class="p">:</span>
+        <span class="n">tts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">tts</span> <span class="o">=</span> <span class="n">computation_time</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">p_r</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">success_prob</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">tts</span></div>
+
+
+<div class="viewcode-block" id="se_lower_tts"><a class="viewcode-back" href="../../../reference/openjij/utils/index.html#openjij.se_lower_tts">[docs]</a><span class="k">def</span> <span class="nf">se_lower_tts</span><span class="p">(</span><span class="n">tts</span><span class="p">,</span> <span class="n">success_prob</span><span class="p">,</span> <span class="n">computation_time</span><span class="p">,</span> <span class="n">p_r</span><span class="p">,</span> <span class="n">se_success_prob</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Args:</span>
+<span class="sd">        success_prob (float): success probability.</span>
+<span class="sd">        computation_time (float):</span>
+<span class="sd">        p_r (float): thereshold probability to calculate time to solution.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        float: time to solution :math:`\\tau * \\log(1-pr)/\\log(1-ps)` &#39;s standard error which pr is thereshold probability, ps is success probability and :math:`tau` is computation time.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="n">success_prob</span> <span class="o">+</span> <span class="n">se_success_prob</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mf">0.0</span><span class="p">:</span>
+        <span class="n">tts_low_error</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="k">elif</span> <span class="n">success_prob</span> <span class="o">==</span> <span class="mf">0.0</span><span class="p">:</span>
+        <span class="n">tts_low_error</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">tts_low_error</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">computation_time</span>
+            <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">p_r</span><span class="p">)</span>
+            <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="n">success_prob</span> <span class="o">+</span> <span class="n">se_success_prob</span><span class="p">))</span>
+        <span class="p">)</span>
+
+    <span class="n">se_lower_tts</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">tts_low_error</span> <span class="o">-</span> <span class="n">tts</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">se_lower_tts</span></div>
+
+
+<div class="viewcode-block" id="se_upper_tts"><a class="viewcode-back" href="../../../reference/openjij/utils/index.html#openjij.se_upper_tts">[docs]</a><span class="k">def</span> <span class="nf">se_upper_tts</span><span class="p">(</span><span class="n">tts</span><span class="p">,</span> <span class="n">success_prob</span><span class="p">,</span> <span class="n">computation_time</span><span class="p">,</span> <span class="n">p_r</span><span class="p">,</span> <span class="n">se_success_prob</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Args:</span>
+<span class="sd">        success_prob (float): success probability.</span>
+<span class="sd">        computation_time (float):</span>
+<span class="sd">        p_r (float): thereshold probability to calculate time to solution.</span>
+<span class="sd">    Returens:</span>
+<span class="sd">        float: time to solution :math:`\\tau * \\log(1-pr)/\\log(1-ps)` &#39;s standard error which pr is thereshold probability, ps is success probability and :math:`tau` is computation time.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">success_prob</span> <span class="o">==</span> <span class="mf">1.0</span><span class="p">:</span>
+        <span class="n">tts_up_error</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="k">elif</span> <span class="n">success_prob</span> <span class="o">==</span> <span class="mf">0.0</span><span class="p">:</span>
+        <span class="n">tts_up_error</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">tts_up_error</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">computation_time</span>
+            <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">p_r</span><span class="p">)</span>
+            <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="n">success_prob</span> <span class="o">-</span> <span class="n">se_success_prob</span><span class="p">))</span>
+        <span class="p">)</span>
+
+    <span class="n">se_upper_tts</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">tts_up_error</span> <span class="o">-</span> <span class="n">tts</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">se_upper_tts</span></div>
+</pre></div>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Jij Inc.<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

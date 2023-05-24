@@ -1,0 +1,1034 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>1. 3-JijModeling with OpenJij &#8212; OpenJij Book</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/katex-math.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script src="../../_static/tabs.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="canonical" href="https://openjij.github.io/OpenJij-Documentation/tutorial/en/003-JijModeling_with_OpenJij.html" />
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="2. 6-Machine Learning (QBoost) with Quantum Annealing" href="006-Machine_Learning_by_QA.html" />
+    <link rel="prev" title="openjij.variable_type" href="../../reference/openjij/variable_type/index.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../_static/OpenJij-Logo.webp" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">OpenJij Book</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  OpenJij API Reference
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../reference/openjij/index.html">
+   <code class="xref py py-mod docutils literal notranslate">
+    <span class="pre">
+     openjij
+    </span>
+   </code>
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../reference/openjij/model/index.html">
+     <code class="xref py py-mod docutils literal notranslate">
+      <span class="pre">
+       openjij.model
+      </span>
+     </code>
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+    <label for="toctree-checkbox-2">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../reference/openjij/model/chimera_model/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         openjij.model.chimera_model
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../reference/openjij/model/king_graph/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         openjij.model.king_graph
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../reference/openjij/model/model/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         openjij.model.model
+        </span>
+       </code>
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../reference/openjij/sampler/index.html">
+     <code class="xref py py-mod docutils literal notranslate">
+      <span class="pre">
+       openjij.sampler
+      </span>
+     </code>
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+    <label for="toctree-checkbox-3">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../reference/openjij/sampler/chimera_gpu/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         openjij.sampler.chimera_gpu
+        </span>
+       </code>
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+      <label for="toctree-checkbox-4">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../reference/openjij/sampler/chimera_gpu/base_gpu_chimera/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           openjij.sampler.chimera_gpu.base_gpu_chimera
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../reference/openjij/sampler/chimera_gpu/gpu_sa_sampler/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           openjij.sampler.chimera_gpu.gpu_sa_sampler
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../reference/openjij/sampler/chimera_gpu/gpu_sqa_sampler/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           openjij.sampler.chimera_gpu.gpu_sqa_sampler
+          </span>
+         </code>
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../reference/openjij/sampler/csqa_sampler/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         openjij.sampler.csqa_sampler
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../reference/openjij/sampler/response/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         openjij.sampler.response
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../reference/openjij/sampler/sa_sampler/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         openjij.sampler.sa_sampler
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../reference/openjij/sampler/sampler/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         openjij.sampler.sampler
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../reference/openjij/sampler/sqa_sampler/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         openjij.sampler.sqa_sampler
+        </span>
+       </code>
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../reference/openjij/utils/index.html">
+     <code class="xref py py-mod docutils literal notranslate">
+      <span class="pre">
+       openjij.utils
+      </span>
+     </code>
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+    <label for="toctree-checkbox-5">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../reference/openjij/utils/benchmark/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         openjij.utils.benchmark
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../reference/openjij/utils/decorator/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         openjij.utils.decorator
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../reference/openjij/utils/graph_utils/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         openjij.utils.graph_utils
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../reference/openjij/utils/res_convertor/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         openjij.utils.res_convertor
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../reference/openjij/utils/time_measure/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         openjij.utils.time_measure
+        </span>
+       </code>
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../reference/openjij/variable_type/index.html">
+     <code class="xref py py-mod docutils literal notranslate">
+      <span class="pre">
+       openjij.variable_type
+      </span>
+     </code>
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  OpenJij Tutorial
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   1. 3-JijModeling with OpenJij
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="006-Machine_Learning_by_QA.html">
+   2. 6-Machine Learning (QBoost) with Quantum Annealing
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="index.html">
+   3. OpenJij Tutorials
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  OpenJij チュートリアル
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ja/graph_coloring.html">
+   1. グラフ彩色問題
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ja/index.html">
+   2. OpenJij チュートリアル
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ja/knapsack.html">
+   3. ナップサック問題
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/OpenJij/OpenJij/main?urlpath=tree/docs/tutorial/en/003-JijModeling_with_OpenJij.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/OpenJij/OpenJij"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/OpenJij/OpenJij/issues/new?title=Issue%20on%20page%20%2Ftutorial/en/003-JijModeling_with_OpenJij.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../_sources/tutorial/en/003-JijModeling_with_OpenJij.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#formulation-of-qubo-with-jijmodeling">
+   1.1. Formulation of QUBO with JijModeling
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#formulation-with-jijmodeling">
+     1.1.1. Formulation with JijModeling
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#converting-mathmatical-model-to-qubo">
+     1.1.2. Converting mathmatical model to QUBO
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#run-with-openjij">
+   1.2. Run with OpenJij
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#conclusion">
+   1.3. Conclusion
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>3-JijModeling with OpenJij</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#formulation-of-qubo-with-jijmodeling">
+   1.1. Formulation of QUBO with JijModeling
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#formulation-with-jijmodeling">
+     1.1.1. Formulation with JijModeling
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#converting-mathmatical-model-to-qubo">
+     1.1.2. Converting mathmatical model to QUBO
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#run-with-openjij">
+   1.2. Run with OpenJij
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#conclusion">
+   1.3. Conclusion
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="jijmodeling-with-openjij">
+<h1><span class="section-number">1. </span>3-JijModeling with OpenJij<a class="headerlink" href="#jijmodeling-with-openjij" title="Permalink to this headline">#</a></h1>
+<p><a class="reference external" href="https://colab.research.google.com/github/OpenJij/OpenJijTutorial/blob/master/source/en/003-PyQUBO_2_OpenJij.ipynb"><img alt="Open in Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
+<p>In this chapter, first we explain how to write mathmatical model with JijModeling. After that, we explaint how to convert the model to QUBO by using JijModeling Transpiler and run Simulated Annealing with OpenJij.
+We solve “Creek Coverage Problem” as an example.</p>
+<p>Please check document for more detail explanation about JijModeling and JijModeling Transpiler.</p>
+<p>We can install <code class="docutils literal notranslate"><span class="pre">jijmodeling</span></code> with the following command using <code class="docutils literal notranslate"><span class="pre">pip</span></code></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip install jijmodeling
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: jijmodeling in /home/hiromichi/.pyenv/versions/3.9.6/lib/python3.9/site-packages (0.10.0)
+Requirement already satisfied: pydantic&lt;1.10.0 in /home/hiromichi/.pyenv/versions/3.9.6/lib/python3.9/site-packages (from jijmodeling) (1.9.2)
+Requirement already satisfied: pandas&lt;1.4.2 in /home/hiromichi/.pyenv/versions/3.9.6/lib/python3.9/site-packages (from jijmodeling) (1.4.1)
+Requirement already satisfied: python-ulid&lt;1.2.0 in /home/hiromichi/.pyenv/versions/3.9.6/lib/python3.9/site-packages (from jijmodeling) (1.1.0)
+Requirement already satisfied: jij-cimod&lt;1.5.0,&gt;=1.4.1 in /home/hiromichi/.pyenv/versions/3.9.6/lib/python3.9/site-packages (from jijmodeling) (1.4.36)
+Requirement already satisfied: typeguard&lt;2.14.0 in /home/hiromichi/.pyenv/versions/3.9.6/lib/python3.9/site-packages (from jijmodeling) (2.13.3)
+Requirement already satisfied: jijmodeling-schema==0.0.17 in /home/hiromichi/.pyenv/versions/3.9.6/lib/python3.9/site-packages (from jijmodeling) (0.0.17)
+Requirement already satisfied: dimod&lt;0.12.0 in /home/hiromichi/.pyenv/versions/3.9.6/lib/python3.9/site-packages (from jijmodeling) (0.10.17)
+Requirement already satisfied: openjij&lt;0.6.0,&gt;=0.5.0 in /home/hiromichi/.pyenv/versions/3.9.6/lib/python3.9/site-packages (from jijmodeling) (0.5.33)
+Requirement already satisfied: numpy&lt;1.24.0 in /home/hiromichi/.pyenv/versions/3.9.6/lib/python3.9/site-packages (from jijmodeling) (1.23.2)
+Requirement already satisfied: scipy&lt;1.10.0 in /home/hiromichi/.pyenv/versions/3.9.6/lib/python3.9/site-packages (from jijmodeling) (1.9.1)
+Requirement already satisfied: betterproto[compiler]==1.2.5 in /home/hiromichi/.pyenv/versions/3.9.6/lib/python3.9/site-packages (from jijmodeling-schema==0.0.17-&gt;jijmodeling) (1.2.5)
+Requirement already satisfied: stringcase in /home/hiromichi/.pyenv/versions/3.9.6/lib/python3.9/site-packages (from betterproto[compiler]==1.2.5-&gt;jijmodeling-schema==0.0.17-&gt;jijmodeling) (1.2.0)
+Requirement already satisfied: grpclib in /home/hiromichi/.pyenv/versions/3.9.6/lib/python3.9/site-packages (from betterproto[compiler]==1.2.5-&gt;jijmodeling-schema==0.0.17-&gt;jijmodeling) (0.4.3)
+Requirement already satisfied: black in /home/hiromichi/.pyenv/versions/3.9.6/lib/python3.9/site-packages (from betterproto[compiler]==1.2.5-&gt;jijmodeling-schema==0.0.17-&gt;jijmodeling) (22.6.0)
+Requirement already satisfied: jinja2 in /home/hiromichi/.pyenv/versions/3.9.6/lib/python3.9/site-packages (from betterproto[compiler]==1.2.5-&gt;jijmodeling-schema==0.0.17-&gt;jijmodeling) (3.1.2)
+Requirement already satisfied: protobuf in /home/hiromichi/.pyenv/versions/3.9.6/lib/python3.9/site-packages (from betterproto[compiler]==1.2.5-&gt;jijmodeling-schema==0.0.17-&gt;jijmodeling) (4.21.5)
+Requirement already satisfied: pyparsing&lt;3.0.0,&gt;=2.4.7 in /home/hiromichi/.pyenv/versions/3.9.6/lib/python3.9/site-packages (from dimod&lt;0.12.0-&gt;jijmodeling) (2.4.7)
+Requirement already satisfied: requests&lt;2.29.0,&gt;=2.28.0 in /home/hiromichi/.pyenv/versions/3.9.6/lib/python3.9/site-packages (from openjij&lt;0.6.0,&gt;=0.5.0-&gt;jijmodeling) (2.28.1)
+Requirement already satisfied: pytz&gt;=2020.1 in /home/hiromichi/.pyenv/versions/3.9.6/lib/python3.9/site-packages (from pandas&lt;1.4.2-&gt;jijmodeling) (2022.2.1)
+Requirement already satisfied: python-dateutil&gt;=2.8.1 in /home/hiromichi/.pyenv/versions/3.9.6/lib/python3.9/site-packages (from pandas&lt;1.4.2-&gt;jijmodeling) (2.8.2)
+Requirement already satisfied: typing-extensions&gt;=3.7.4.3 in /home/hiromichi/.pyenv/versions/3.9.6/lib/python3.9/site-packages (from pydantic&lt;1.10.0-&gt;jijmodeling) (4.3.0)
+Requirement already satisfied: six&gt;=1.5 in /home/hiromichi/.pyenv/versions/3.9.6/lib/python3.9/site-packages (from python-dateutil&gt;=2.8.1-&gt;pandas&lt;1.4.2-&gt;jijmodeling) (1.16.0)
+Requirement already satisfied: urllib3&lt;1.27,&gt;=1.21.1 in /home/hiromichi/.pyenv/versions/3.9.6/lib/python3.9/site-packages (from requests&lt;2.29.0,&gt;=2.28.0-&gt;openjij&lt;0.6.0,&gt;=0.5.0-&gt;jijmodeling) (1.26.12)
+Requirement already satisfied: idna&lt;4,&gt;=2.5 in /home/hiromichi/.pyenv/versions/3.9.6/lib/python3.9/site-packages (from requests&lt;2.29.0,&gt;=2.28.0-&gt;openjij&lt;0.6.0,&gt;=0.5.0-&gt;jijmodeling) (3.3)
+Requirement already satisfied: certifi&gt;=2017.4.17 in /home/hiromichi/.pyenv/versions/3.9.6/lib/python3.9/site-packages (from requests&lt;2.29.0,&gt;=2.28.0-&gt;openjij&lt;0.6.0,&gt;=0.5.0-&gt;jijmodeling) (2022.6.15)
+Requirement already satisfied: charset-normalizer&lt;3,&gt;=2 in /home/hiromichi/.pyenv/versions/3.9.6/lib/python3.9/site-packages (from requests&lt;2.29.0,&gt;=2.28.0-&gt;openjij&lt;0.6.0,&gt;=0.5.0-&gt;jijmodeling) (2.1.1)
+Requirement already satisfied: click&gt;=8.0.0 in /home/hiromichi/.pyenv/versions/3.9.6/lib/python3.9/site-packages (from black-&gt;betterproto[compiler]==1.2.5-&gt;jijmodeling-schema==0.0.17-&gt;jijmodeling) (8.1.3)
+Requirement already satisfied: mypy-extensions&gt;=0.4.3 in /home/hiromichi/.pyenv/versions/3.9.6/lib/python3.9/site-packages (from black-&gt;betterproto[compiler]==1.2.5-&gt;jijmodeling-schema==0.0.17-&gt;jijmodeling) (0.4.3)
+Requirement already satisfied: pathspec&gt;=0.9.0 in /home/hiromichi/.pyenv/versions/3.9.6/lib/python3.9/site-packages (from black-&gt;betterproto[compiler]==1.2.5-&gt;jijmodeling-schema==0.0.17-&gt;jijmodeling) (0.9.0)
+Requirement already satisfied: platformdirs&gt;=2 in /home/hiromichi/.pyenv/versions/3.9.6/lib/python3.9/site-packages (from black-&gt;betterproto[compiler]==1.2.5-&gt;jijmodeling-schema==0.0.17-&gt;jijmodeling) (2.5.2)
+Requirement already satisfied: tomli&gt;=1.1.0 in /home/hiromichi/.pyenv/versions/3.9.6/lib/python3.9/site-packages (from black-&gt;betterproto[compiler]==1.2.5-&gt;jijmodeling-schema==0.0.17-&gt;jijmodeling) (2.0.1)
+Requirement already satisfied: h2&lt;5,&gt;=3.1.0 in /home/hiromichi/.pyenv/versions/3.9.6/lib/python3.9/site-packages (from grpclib-&gt;betterproto[compiler]==1.2.5-&gt;jijmodeling-schema==0.0.17-&gt;jijmodeling) (4.1.0)
+Requirement already satisfied: multidict in /home/hiromichi/.pyenv/versions/3.9.6/lib/python3.9/site-packages (from grpclib-&gt;betterproto[compiler]==1.2.5-&gt;jijmodeling-schema==0.0.17-&gt;jijmodeling) (6.0.2)
+Requirement already satisfied: hpack&lt;5,&gt;=4.0 in /home/hiromichi/.pyenv/versions/3.9.6/lib/python3.9/site-packages (from h2&lt;5,&gt;=3.1.0-&gt;grpclib-&gt;betterproto[compiler]==1.2.5-&gt;jijmodeling-schema==0.0.17-&gt;jijmodeling) (4.0.0)
+Requirement already satisfied: hyperframe&lt;7,&gt;=6.0 in /home/hiromichi/.pyenv/versions/3.9.6/lib/python3.9/site-packages (from h2&lt;5,&gt;=3.1.0-&gt;grpclib-&gt;betterproto[compiler]==1.2.5-&gt;jijmodeling-schema==0.0.17-&gt;jijmodeling) (6.0.1)
+Requirement already satisfied: MarkupSafe&gt;=2.0 in /home/hiromichi/.pyenv/versions/3.9.6/lib/python3.9/site-packages (from jinja2-&gt;betterproto[compiler]==1.2.5-&gt;jijmodeling-schema==0.0.17-&gt;jijmodeling) (2.1.1)
+<span class=" -Color -Color-Yellow">WARNING: You are using pip version 21.1.3; however, version 22.2.2 is available.</span>
+<span class=" -Color -Color-Yellow">You should consider upgrading via the &#39;/home/hiromichi/.pyenv/versions/3.9.6/bin/python3.9 -m pip install --upgrade pip&#39; command.</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="formulation-of-qubo-with-jijmodeling">
+<h2><span class="section-number">1.1. </span>Formulation of QUBO with JijModeling<a class="headerlink" href="#formulation-of-qubo-with-jijmodeling" title="Permalink to this headline">#</a></h2>
+<p>JijModeling is a intuitive modeling library for fomulating mathmatical model and we can convert mathmatical model to QUBO easily. In the previous chapters, we have shown the case without JijModeling, so we had to formulate QUBO, then expand the expressions ourselves and put them into the Python script. However, we can eliminate that hassles with JijModeling.</p>
+<p>JijModeling is a handy library that can help us reduce the computational and implementation errors in our QUBO and Ising model transformations.</p>
+<p>Let us solve the Creek Coverage Problem as as example.</p>
+<p>For more details of this problem, see also <a class="reference external" href="https://qard.is.tohoku.ac.jp/T-Wave/?p=434">here (T-Wave: creek coverage problem (only Japanese))</a>.</p>
+<p>We introduce the formulation of the creek coverage problem as a mathmatical model.</p>
+<p>This problem is whethre the graph <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi><mo>=</mo><mo stretchy="false">(</mo><mi>V</mi><mo separator="true">,</mo><mi>E</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">G=(V, E)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal">G</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mclose">)</span></span></span></span></span> can be covered by <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span></span> creeks.</p>
+<p>The mathmatical model of this problem is</p>
+<div class="math">
+<span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>H</mi><mo>=</mo><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><mrow><mo fence="true">[</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><mrow><mo fence="true">(</mo><mo>−</mo><mn>1</mn><mo>+</mo><munder><mo>∑</mo><mrow><mi>v</mi><mo>∈</mo><mi>V</mi></mrow></munder><msub><mi>x</mi><mrow><mi>v</mi><mo separator="true">,</mo><mi>i</mi></mrow></msub><mo fence="true">)</mo></mrow><munder><mo>∑</mo><mrow><mi>v</mi><mo>∈</mo><mi>V</mi></mrow></munder><msub><mi>x</mi><mrow><mi>v</mi><mo separator="true">,</mo><mi>i</mi></mrow></msub><mo>−</mo><munder><mo>∑</mo><mrow><mo stretchy="false">(</mo><mi>u</mi><mo separator="true">,</mo><mi>v</mi><mo stretchy="false">)</mo><mo>∈</mo><mi>E</mi></mrow></munder><msub><mi>x</mi><mrow><mi>u</mi><mo separator="true">,</mo><mi>i</mi></mrow></msub><msub><mi>x</mi><mrow><mi>v</mi><mo separator="true">,</mo><mi>i</mi></mrow></msub><mo fence="true">]</mo></mrow></mrow><annotation encoding="application/x-tex">H =  \sum^n_{i=1}\left[
+\frac{1}{2}\left(-1+\sum_{v \in V} x_{v,i}\right)\sum_{v \in V} x_{v, i} 
+- \sum_{(u, v)\in E} x_{u,i} x_{v, i}\right]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.08125em;">H</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:3.6em;vertical-align:-1.55em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.6514em;"><span style="top:-1.8723em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.05em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style="top:-4.3em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.2777em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner"><span class="mopen"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.05em;"><span style="top:-2.25em;"><span class="pstrut" style="height:3.155em;"></span><span class="delimsizinginner delim-size4"><span>⎣</span></span></span><span style="top:-3.397em;"><span class="pstrut" style="height:3.155em;"></span><span style="height:0.016em;width:0.6667em;"><svg xmlns="http://www.w3.org/2000/svg" width='0.6667em' height='0.016em' style='width:0.6667em' viewBox='0 0 666.67 16' preserveAspectRatio='xMinYMin'><path d='M319 0 H403 V16 H319z M319 0 H403 V16 H319z'/></svg></span></span><span style="top:-4.05em;"><span class="pstrut" style="height:3.155em;"></span><span class="delimsizinginner delim-size4"><span>⎡</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.55em;"><span></span></span></span></span></span></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3214em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size4">(</span></span><span class="mord">−</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.05em;"><span style="top:-1.8557em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">v</span><span class="mrel mtight">∈</span><span class="mord mathnormal mtight" style="margin-right:0.22222em;">V</span></span></span></span><span style="top:-3.05em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.3217em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">v</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight">i</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size4">)</span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.05em;"><span style="top:-1.8557em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">v</span><span class="mrel mtight">∈</span><span class="mord mathnormal mtight" style="margin-right:0.22222em;">V</span></span></span></span><span style="top:-3.05em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.3217em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">v</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight">i</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.05em;"><span style="top:-1.809em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">(</span><span class="mord mathnormal mtight">u</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight" style="margin-right:0.03588em;">v</span><span class="mclose mtight">)</span><span class="mrel mtight">∈</span><span class="mord mathnormal mtight" style="margin-right:0.05764em;">E</span></span></span></span><span style="top:-3.05em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.516em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">u</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight">i</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">v</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight">i</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mclose"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.05em;"><span style="top:-2.25em;"><span class="pstrut" style="height:3.155em;"></span><span class="delimsizinginner delim-size4"><span>⎦</span></span></span><span style="top:-3.397em;"><span class="pstrut" style="height:3.155em;"></span><span style="height:0.016em;width:0.6667em;"><svg xmlns="http://www.w3.org/2000/svg" width='0.6667em' height='0.016em' style='width:0.6667em' viewBox='0 0 666.67 16' preserveAspectRatio='xMinYMin'><path d='M263 0 H347 V16 H263z M263 0 H347 V16 H263z'/></svg></span></span><span style="top:-4.05em;"><span class="pstrut" style="height:3.155em;"></span><span class="delimsizinginner delim-size4"><span>⎤</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.55em;"><span></span></span></span></span></span></span></span></span></span></span></span></div><div class="math">
+<span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mrow><mi mathvariant="normal">s</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">.</mi><mtext> </mtext></mrow><mspace width="1em"/><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><msub><mi>x</mi><mrow><mi>v</mi><mo separator="true">,</mo><mi>i</mi></mrow></msub><mo>=</mo><mn>1</mn><mspace width="1em"/><mrow><mi mathvariant="normal">f</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">l</mi></mrow><mtext> </mtext><mi>v</mi></mrow><annotation encoding="application/x-tex">\mathrm{s.t.\  }\quad  \sum^n_{i=1} x_{v, i} = 1\quad \mathrm{forall}\ v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:2.9291em;vertical-align:-1.2777em;"></span><span class="mord"><span class="mord mathrm">s.t.</span><span class="mspace"> </span></span><span class="mspace" style="margin-right:1em;"></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.6514em;"><span style="top:-1.8723em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.05em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style="top:-4.3em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.2777em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">v</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight">i</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:1em;"></span><span class="mord"><span class="mord mathrm">forall</span></span><span class="mspace"> </span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span></span></span></span></span></div><p>Here, <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mrow><mi>v</mi><mo separator="true">,</mo><mi>i</mi></mrow></msub></mrow><annotation encoding="application/x-tex">x_{v,i}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7167em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">v</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight">i</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span></span></span> is binary variable and if vertex <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi></mrow><annotation encoding="application/x-tex">v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span></span></span></span></span> is colored by <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6595em;"></span><span class="mord mathnormal">i</span></span></span></span></span>th color, then <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mrow><mi>v</mi><mo separator="true">,</mo><mi>i</mi></mrow></msub><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">x_{v,i} = 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7167em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">v</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight">i</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span></span>.
+The first term is Objective function which shows how close the split subgraph is to creek (complete graph)
+Constraint is that only one color is painted on each vertex.
+Both term must be zero. However, we treat the first term as a penalty term, and second as a cost(objective function).</p>
+<p>The QUBO of this model as follows.</p>
+<div class="math">
+<span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>H</mi><mo>=</mo><mi>A</mi><munder><mo>∑</mo><mi>v</mi></munder><msup><mrow><mo fence="true">(</mo><mn>1</mn><mo>−</mo><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><msub><mi>x</mi><mrow><mi>v</mi><mo separator="true">,</mo><mi>i</mi></mrow></msub><mo fence="true">)</mo></mrow><mn>2</mn></msup><mo>+</mo><mi>B</mi><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><mrow><mo fence="true">[</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><mrow><mo fence="true">(</mo><mo>−</mo><mn>1</mn><mo>+</mo><munder><mo>∑</mo><mrow><mi>v</mi><mo>∈</mo><mi>V</mi></mrow></munder><msub><mi>x</mi><mrow><mi>v</mi><mo separator="true">,</mo><mi>i</mi></mrow></msub><mo fence="true">)</mo></mrow><munder><mo>∑</mo><mrow><mi>v</mi><mo>∈</mo><mi>V</mi></mrow></munder><msub><mi>x</mi><mrow><mi>v</mi><mo separator="true">,</mo><mi>i</mi></mrow></msub><mo>−</mo><munder><mo>∑</mo><mrow><mo stretchy="false">(</mo><mi>u</mi><mo separator="true">,</mo><mi>v</mi><mo stretchy="false">)</mo><mo>∈</mo><mi>E</mi></mrow></munder><msub><mi>x</mi><mrow><mi>u</mi><mo separator="true">,</mo><mi>i</mi></mrow></msub><msub><mi>x</mi><mrow><mi>v</mi><mo separator="true">,</mo><mi>i</mi></mrow></msub><mo fence="true">]</mo></mrow></mrow><annotation encoding="application/x-tex">H = A\sum_v \left(1-\sum^n_{i=1} x_{v, i}\right)^2 
++ B \sum^n_{i=1}\left[
+\frac{1}{2}\left(-1+\sum_{v \in V} x_{v,i}\right)\sum_{v \in V} x_{v, i} 
+- \sum_{(u, v)\in E} x_{u,i} x_{v, i}\right]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.08125em;">H</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:3.2317em;vertical-align:-1.2777em;"></span><span class="mord mathnormal">A</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.05em;"><span style="top:-1.9em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">v</span></span></span><span style="top:-3.05em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.25em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner"><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size4">(</span></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.6514em;"><span style="top:-1.8723em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.05em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style="top:-4.3em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.2777em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">v</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight">i</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size4">)</span></span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:1.954em;"><span style="top:-4.2029em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:3.6em;vertical-align:-1.55em;"></span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.6514em;"><span style="top:-1.8723em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.05em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style="top:-4.3em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.2777em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner"><span class="mopen"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.05em;"><span style="top:-2.25em;"><span class="pstrut" style="height:3.155em;"></span><span class="delimsizinginner delim-size4"><span>⎣</span></span></span><span style="top:-3.397em;"><span class="pstrut" style="height:3.155em;"></span><span style="height:0.016em;width:0.6667em;"><svg xmlns="http://www.w3.org/2000/svg" width='0.6667em' height='0.016em' style='width:0.6667em' viewBox='0 0 666.67 16' preserveAspectRatio='xMinYMin'><path d='M319 0 H403 V16 H319z M319 0 H403 V16 H319z'/></svg></span></span><span style="top:-4.05em;"><span class="pstrut" style="height:3.155em;"></span><span class="delimsizinginner delim-size4"><span>⎡</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.55em;"><span></span></span></span></span></span></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3214em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size4">(</span></span><span class="mord">−</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.05em;"><span style="top:-1.8557em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">v</span><span class="mrel mtight">∈</span><span class="mord mathnormal mtight" style="margin-right:0.22222em;">V</span></span></span></span><span style="top:-3.05em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.3217em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">v</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight">i</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size4">)</span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.05em;"><span style="top:-1.8557em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">v</span><span class="mrel mtight">∈</span><span class="mord mathnormal mtight" style="margin-right:0.22222em;">V</span></span></span></span><span style="top:-3.05em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.3217em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">v</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight">i</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.05em;"><span style="top:-1.809em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">(</span><span class="mord mathnormal mtight">u</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight" style="margin-right:0.03588em;">v</span><span class="mclose mtight">)</span><span class="mrel mtight">∈</span><span class="mord mathnormal mtight" style="margin-right:0.05764em;">E</span></span></span></span><span style="top:-3.05em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.516em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">u</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight">i</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">v</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight">i</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mclose"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.05em;"><span style="top:-2.25em;"><span class="pstrut" style="height:3.155em;"></span><span class="delimsizinginner delim-size4"><span>⎦</span></span></span><span style="top:-3.397em;"><span class="pstrut" style="height:3.155em;"></span><span style="height:0.016em;width:0.6667em;"><svg xmlns="http://www.w3.org/2000/svg" width='0.6667em' height='0.016em' style='width:0.6667em' viewBox='0 0 666.67 16' preserveAspectRatio='xMinYMin'><path d='M263 0 H347 V16 H263z M263 0 H347 V16 H263z'/></svg></span></span><span style="top:-4.05em;"><span class="pstrut" style="height:3.155em;"></span><span class="delimsizinginner delim-size4"><span>⎤</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.55em;"><span></span></span></span></span></span></span></span></span></span></span></span></div><p>Normally, we have write down QUBO model to use Ising optimization, however, we do not need to do so if you use JijModeling.</p>
+<p>We give the Graph and the number of creek <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span></span> as follows in this time.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># set the number of vertex</span>
+<span class="n">N_VER</span> <span class="o">=</span> <span class="mi">8</span>
+<span class="c1"># set the number of colors</span>
+<span class="n">N_COLOR</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="c1"># set the graph. define them which vertices are connected to each other</span>
+<span class="n">edges</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">7</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">6</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="formulation-with-jijmodeling">
+<h3><span class="section-number">1.1.1. </span>Formulation with JijModeling<a class="headerlink" href="#formulation-with-jijmodeling" title="Permalink to this headline">#</a></h3>
+<p>We import JijModeling.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">jijmodeling</span> <span class="k">as</span> <span class="nn">jm</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>At First, we prepare variables for representing mathmatical model. We set an array of variables using <code class="docutils literal notranslate"><span class="pre">Array</span></code>.
+In this time, we need the number of (N_VER) x (N_COLOR), therefore we set <code class="docutils literal notranslate"><span class="pre">shape</span></code> argument as follows.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">problem</span> <span class="o">=</span> <span class="n">jm</span><span class="o">.</span><span class="n">Problem</span><span class="p">(</span><span class="s1">&#39;creek&#39;</span><span class="p">)</span>
+
+<span class="n">N</span> <span class="o">=</span> <span class="n">jm</span><span class="o">.</span><span class="n">Placeholder</span><span class="p">(</span><span class="s1">&#39;N&#39;</span><span class="p">)</span>
+<span class="n">V</span> <span class="o">=</span> <span class="n">jm</span><span class="o">.</span><span class="n">Placeholder</span><span class="p">(</span><span class="s1">&#39;V&#39;</span><span class="p">)</span>
+<span class="n">E</span> <span class="o">=</span> <span class="n">jm</span><span class="o">.</span><span class="n">Placeholder</span><span class="p">(</span><span class="s1">&#39;E&#39;</span><span class="p">,</span><span class="n">dim</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">jm</span><span class="o">.</span><span class="n">Binary</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">V</span><span class="p">,</span><span class="n">N</span><span class="p">))</span>
+<span class="n">i</span> <span class="o">=</span> <span class="n">jm</span><span class="o">.</span><span class="n">Element</span><span class="p">(</span><span class="s1">&#39;i&#39;</span><span class="p">,(</span><span class="mi">0</span><span class="p">,</span><span class="n">N</span><span class="p">))</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">jm</span><span class="o">.</span><span class="n">Element</span><span class="p">(</span><span class="s1">&#39;v&#39;</span><span class="p">,(</span><span class="mi">0</span><span class="p">,</span><span class="n">V</span><span class="p">))</span>
+<span class="n">e</span> <span class="o">=</span> <span class="n">jm</span><span class="o">.</span><span class="n">Element</span><span class="p">(</span><span class="s1">&#39;e&#39;</span><span class="p">,</span><span class="n">E</span><span class="p">)</span>
+
+<span class="n">objective</span> <span class="o">=</span> <span class="n">jm</span><span class="o">.</span><span class="n">Sum</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span> <span class="o">-</span><span class="mi">1</span> <span class="o">+</span> <span class="n">jm</span><span class="o">.</span><span class="n">Sum</span><span class="p">(</span><span class="n">v</span><span class="p">,</span><span class="n">x</span><span class="p">[</span><span class="n">v</span><span class="p">,</span><span class="n">i</span><span class="p">])</span> <span class="p">)</span> <span class="o">*</span> <span class="n">jm</span><span class="o">.</span><span class="n">Sum</span><span class="p">(</span><span class="n">v</span><span class="p">,</span><span class="n">x</span><span class="p">[</span><span class="n">v</span><span class="p">,</span><span class="n">i</span><span class="p">])</span> <span class="o">-</span> <span class="n">jm</span><span class="o">.</span><span class="n">Sum</span><span class="p">(</span><span class="n">e</span><span class="p">,</span><span class="n">x</span><span class="p">[</span><span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">x</span><span class="p">[</span><span class="n">e</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">i</span><span class="p">]))</span>
+<span class="n">problem</span> <span class="o">+=</span> <span class="n">objective</span>
+<span class="n">constraint</span> <span class="o">=</span> <span class="n">jm</span><span class="o">.</span><span class="n">Constraint</span><span class="p">(</span><span class="s2">&quot;onehot&quot;</span><span class="p">,</span><span class="n">jm</span><span class="o">.</span><span class="n">Sum</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">x</span><span class="p">[</span><span class="n">v</span><span class="p">,</span><span class="n">i</span><span class="p">])</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span><span class="n">forall</span><span class="o">=</span> <span class="n">v</span><span class="p">)</span>
+<span class="n">problem</span> <span class="o">+=</span> <span class="n">constraint</span>
+<span class="n">problem</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math">
+<span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mtable rowspacing="0.25em" columnalign="right left right left right left right left" columnspacing="0em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mtext>Problem</mtext></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mtext>: creek</mtext></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mi>min</mi><mo>⁡</mo></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mspace width="1em"/><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>0</mn></mrow><mrow><mi>N</mi><mo>−</mo><mn>1</mn></mrow></munderover><mrow><mo fence="true">(</mo><mn>0.5</mn><mo>⋅</mo><mrow><mo fence="true">(</mo><munderover><mo>∑</mo><mrow><mi>v</mi><mo>=</mo><mn>0</mn></mrow><mrow><mi>V</mi><mo>−</mo><mn>1</mn></mrow></munderover><msub><mi>x</mi><mrow><mi>v</mi><mo separator="true">,</mo><mi>i</mi></mrow></msub><mo>−</mo><mn>1</mn><mo fence="true">)</mo></mrow><mo>⋅</mo><munderover><mo>∑</mo><mrow><mi>v</mi><mo>=</mo><mn>0</mn></mrow><mrow><mi>V</mi><mo>−</mo><mn>1</mn></mrow></munderover><msub><mi>x</mi><mrow><mi>v</mi><mo separator="true">,</mo><mi>i</mi></mrow></msub><mo>−</mo><munder><mo>∑</mo><mrow><mi>e</mi><mo>∈</mo><mi>E</mi></mrow></munder><msub><mi>x</mi><mrow><msub><mi>e</mi><mn>0</mn></msub><mo separator="true">,</mo><mi>i</mi></mrow></msub><mo>⋅</mo><msub><mi>x</mi><mrow><msub><mi>e</mi><mn>1</mn></msub><mo separator="true">,</mo><mi>i</mi></mrow></msub><mo fence="true">)</mo></mrow></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mtext>s.t.</mtext></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mtext>onehot</mtext><mo>:</mo></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mspace width="1em"/><mspace width="1em"/><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>0</mn></mrow><mrow><mi>N</mi><mo>−</mo><mn>1</mn></mrow></munderover><msub><mi>x</mi><mrow><mi>v</mi><mo separator="true">,</mo><mi>i</mi></mrow></msub><mo>=</mo><mn>1</mn><mo separator="true">,</mo><mtext> </mtext><mi mathvariant="normal">∀</mi><mi>v</mi><mo>∈</mo><mrow><mo fence="true">{</mo><mn>0</mn><mo separator="true">,</mo><mo>…</mo><mo separator="true">,</mo><mi>V</mi><mo>−</mo><mn>1</mn><mo fence="true">}</mo></mrow></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><msub><mi>x</mi><mrow><msub><mi>i</mi><mn>0</mn></msub><mo separator="true">,</mo><msub><mi>i</mi><mn>1</mn></msub></mrow></msub><mo>∈</mo><mo stretchy="false">{</mo><mn>0</mn><mo separator="true">,</mo><mn>1</mn><mo stretchy="false">}</mo></mrow></mstyle></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{alignat*}{4}\text{Problem} &amp; \text{: creek} \\\min &amp; \quad \sum_{ i = 0 }^{ N - 1 } \left( 0.5 \cdot \left( \sum_{ v = 0 }^{ V - 1 } x_{v,i} - 1 \right) \cdot \sum_{ v = 0 }^{ V - 1 } x_{v,i} - \sum_{ e \in E } x_{e_{0},i} \cdot x_{e_{1},i} \right) \\\text{s.t.} &amp; \\&amp; \text{onehot} :\\ &amp;\quad \quad \sum_{ i = 0 }^{ N - 1 } x_{v,i} = 1,\ \forall v \in \left\{ 0 ,\ldots , V - 1 \right\} \\[8pt]&amp; x_{i_{0},i_{1}} \in \{0, 1\}\end{alignat*}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:12.856em;vertical-align:-6.178em;"></span><span class="mord"><span class="mtable"><span class="col-align-r"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:6.678em;"><span style="top:-9.6664em;"><span class="pstrut" style="height:3.8283em;"></span><span class="mord"><span class="mord text"><span class="mord">Problem</span></span></span></span><span style="top:-7.178em;"><span class="pstrut" style="height:3.8283em;"></span><span class="mord"><span class="mop">min</span></span></span><span style="top:-4.7163em;"><span class="pstrut" style="height:3.8283em;"></span><span class="mord"><span class="mord text"><span class="mord">s.t.</span></span></span></span><span style="top:-3.2163em;"><span class="pstrut" style="height:3.8283em;"></span><span class="mord"></span></span><span style="top:-0.728em;"><span class="pstrut" style="height:3.8283em;"></span><span class="mord"></span></span><span style="top:1.6897em;"><span class="pstrut" style="height:3.8283em;"></span><span class="mord"></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:6.178em;"><span></span></span></span></span></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:6.678em;"><span style="top:-9.6664em;"><span class="pstrut" style="height:3.8283em;"></span><span class="mord"><span class="mord"></span><span class="mord text"><span class="mord">: creek</span></span></span></span><span style="top:-7.178em;"><span class="pstrut" style="height:3.8283em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right:1em;"></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.8283em;"><span style="top:-1.8723em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mrel mtight">=</span><span class="mord mtight">0</span></span></span></span><span style="top:-3.05em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style="top:-4.3em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.10903em;">N</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.2777em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size4">(</span></span><span class="mord">0.5</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size4">(</span></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.8283em;"><span style="top:-1.8829em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">v</span><span class="mrel mtight">=</span><span class="mord mtight">0</span></span></span></span><span style="top:-3.05em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style="top:-4.3em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.22222em;">V</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.2671em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">v</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight">i</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord">1</span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size4">)</span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.8283em;"><span style="top:-1.8829em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">v</span><span class="mrel mtight">=</span><span class="mord mtight">0</span></span></span></span><span style="top:-3.05em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style="top:-4.3em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.22222em;">V</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.2671em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">v</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight">i</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.05em;"><span style="top:-1.8557em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">e</span><span class="mrel mtight">∈</span><span class="mord mathnormal mtight" style="margin-right:0.05764em;">E</span></span></span></span><span style="top:-3.05em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.3217em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight">e</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3173em;"><span style="top:-2.357em;margin-left:0em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mtight">0</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight">i</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight">e</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3173em;"><span style="top:-2.357em;margin-left:0em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight">i</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size4">)</span></span></span></span></span><span style="top:-4.7163em;"><span class="pstrut" style="height:3.8283em;"></span><span class="mord"><span class="mord"></span></span></span><span style="top:-3.2163em;"><span class="pstrut" style="height:3.8283em;"></span><span class="mord"><span class="mord"></span><span class="mord text"><span class="mord">onehot</span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">:</span></span></span><span style="top:-0.728em;"><span class="pstrut" style="height:3.8283em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right:1em;"></span><span class="mspace" style="margin-right:1em;"></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.8283em;"><span style="top:-1.8723em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mrel mtight">=</span><span class="mord mtight">0</span></span></span></span><span style="top:-3.05em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style="top:-4.3em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.10903em;">N</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.2777em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">v</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight">i</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace"> </span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">∀</span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;">{</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord">1</span><span class="mclose delimcenter" style="top:0em;">}</span></span></span></span><span style="top:1.6897em;"><span class="pstrut" style="height:3.8283em;"></span><span class="mord"><span class="mord"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3173em;"><span style="top:-2.357em;margin-left:0em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mtight">0</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span><span class="mpunct mtight">,</span><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3173em;"><span style="top:-2.357em;margin-left:0em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mopen">{</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">1</span><span class="mclose">}</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:6.178em;"><span></span></span></span></span></span></span></span></span></span></span></span></div></div>
+</div>
+<p>We can write the mathmatical model simple way.</p>
+<p>Next, we need to prepare the instance data for Placeholder value.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">instance_data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;N&#39;</span><span class="p">:</span><span class="n">N_COLOR</span><span class="p">,</span><span class="s1">&#39;V&#39;</span><span class="p">:</span><span class="n">N_VER</span><span class="p">,</span><span class="s1">&#39;E&#39;</span><span class="p">:</span><span class="n">edges</span> <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We finish to prepare the mathmatical model and instance data.</p>
+</section>
+<section id="converting-mathmatical-model-to-qubo">
+<h3><span class="section-number">1.1.2. </span>Converting mathmatical model to QUBO<a class="headerlink" href="#converting-mathmatical-model-to-qubo" title="Permalink to this headline">#</a></h3>
+<p>first we need to import transpiler function to create QUBO from mathmatical model.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">jijmodeling.transpiler.pyqubo.to_pyqubo</span> <span class="kn">import</span> <span class="n">to_pyqubo</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pyq_obj</span><span class="p">,</span> <span class="n">pyq_cache</span> <span class="o">=</span> <span class="n">to_pyqubo</span><span class="p">(</span><span class="n">problem</span><span class="p">,</span> <span class="n">instance_data</span><span class="p">,</span><span class="n">fixed_variables</span><span class="o">=</span><span class="p">{})</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">to_pyqubo()</span></code> creates pyqubo object (<code class="docutils literal notranslate"><span class="pre">pyq_obj</span></code>) and the information of the relationship between pyqubo object and mathmatical model is in <code class="docutils literal notranslate"><span class="pre">pyq_cache</span></code>.
+Plaese see the Documentation of JijModelingTranspiler for more detail information about <code class="docutils literal notranslate"><span class="pre">to_pyqubo()</span></code>.</p>
+<p>We can easily converted to QUBO (Python dictionary type) with <code class="docutils literal notranslate"><span class="pre">pyq_obj.compile().to_qubo()</span></code>.</p>
+<p>In OpenJij and D-Wave Ocean, QUBO is assumed to be represented by a Python dictionary type.</p>
+<p>We can run it on each solver by <code class="docutils literal notranslate"><span class="pre">.compile</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># compile this model</span>
+<span class="n">qubo</span><span class="p">,</span> <span class="n">offset</span> <span class="o">=</span> <span class="n">pyq_obj</span><span class="o">.</span><span class="n">compile</span><span class="p">()</span><span class="o">.</span><span class="n">to_qubo</span><span class="p">(</span><span class="n">feed_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;onehot&#39;</span><span class="p">:</span><span class="mf">1.0</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">qubo</span></code> is set to QUBO and <code class="docutils literal notranslate"><span class="pre">offset</span></code> is set to the constant that appears when it is converted to QUBO.</p>
+</section>
+</section>
+<section id="run-with-openjij">
+<h2><span class="section-number">1.2. </span>Run with OpenJij<a class="headerlink" href="#run-with-openjij" title="Permalink to this headline">#</a></h2>
+<p>Let’s use OpenJij to solve creek coverage problem.</p>
+<p>In this tutorial, we only use Simulated Annealing(SA) solver, however we can also run Simulated Quantum Annealing(SQA) as same way as SA.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># use SA on neal</span>
+<span class="kn">import</span> <span class="nn">openjij</span> <span class="k">as</span> <span class="nn">oj</span>
+<span class="n">sampler</span> <span class="o">=</span> <span class="n">oj</span><span class="o">.</span><span class="n">SASampler</span><span class="p">()</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">sampler</span><span class="o">.</span><span class="n">sample_qubo</span><span class="p">(</span><span class="n">qubo</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">.first.sample</span></code> extracts the lowest energy of all derived solutions.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">first</span><span class="o">.</span><span class="n">sample</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;x[]0_0&#39;: 0, &#39;x[]0_1&#39;: 0, &#39;x[]0_2&#39;: 1, &#39;x[]1_0&#39;: 0, &#39;x[]1_1&#39;: 0, &#39;x[]1_2&#39;: 1, &#39;x[]2_0&#39;: 0, &#39;x[]2_1&#39;: 0, &#39;x[]2_2&#39;: 1, &#39;x[]3_0&#39;: 1, &#39;x[]3_1&#39;: 0, &#39;x[]3_2&#39;: 0, &#39;x[]4_0&#39;: 1, &#39;x[]4_1&#39;: 0, &#39;x[]4_2&#39;: 0, &#39;x[]5_0&#39;: 0, &#39;x[]5_1&#39;: 1, &#39;x[]5_2&#39;: 0, &#39;x[]6_0&#39;: 0, &#39;x[]6_1&#39;: 1, &#39;x[]6_2&#39;: 0, &#39;x[]7_0&#39;: 0, &#39;x[]7_1&#39;: 1, &#39;x[]7_2&#39;: 0}
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can use <code class="docutils literal notranslate"><span class="pre">.decode</span></code> method to see the result more pretty.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">pyq_cache</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+<span class="n">result</span><span class="o">.</span><span class="n">record</span><span class="o">.</span><span class="n">solution</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;x&#39;: [(([3, 4, 5, 6, 7, 0, 1, 2], [0, 0, 1, 1, 1, 2, 2, 2]),
+   [1, 1, 1, 1, 1, 1, 1, 1],
+   ())]}
+</pre></div>
+</div>
+</div>
+</div>
+<p>The solution is in the COO format. It means that the solution array containts only indexed with a value of 1.
+This format is convinient to see the result becuase normally we only know which value is 1 or not.
+Let us see the result.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># initialize vertex color list</span>
+<span class="n">node_colors</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">N_VER</span>
+<span class="c1"># set color list for visualization</span>
+<span class="n">colorlist</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;gold&#39;</span><span class="p">,</span> <span class="s1">&#39;violet&#39;</span><span class="p">,</span> <span class="s1">&#39;limegreen&#39;</span><span class="p">,</span> <span class="s1">&#39;darkorange&#39;</span><span class="p">]</span>
+<span class="c1"># set vertex color list</span>
+<span class="k">for</span> <span class="n">node_num</span><span class="p">,</span><span class="n">class_num</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">result</span><span class="o">.</span><span class="n">record</span><span class="o">.</span><span class="n">solution</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]):</span>
+    <span class="n">node_colors</span><span class="p">[</span><span class="n">node_num</span><span class="p">]</span> <span class="o">=</span> <span class="n">colorlist</span><span class="p">[</span><span class="n">class_num</span><span class="p">]</span>
+<span class="c1"># make figure</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">()</span>
+<span class="n">G</span><span class="o">.</span><span class="n">add_nodes_from</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">N_VER</span><span class="p">))</span>
+<span class="n">G</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">(</span><span class="n">instance_data</span><span class="p">[</span><span class="s2">&quot;E&quot;</span><span class="p">])</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="n">node_colors</span><span class="p">,</span> <span class="n">with_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/003-JijModeling_with_OpenJij_31_0.png" src="../../_images/003-JijModeling_with_OpenJij_31_0.png" />
+</div>
+</div>
+<p>The graph is divided by each creeks.</p>
+<p>We can check the energy and objective value by using <code class="docutils literal notranslate"><span class="pre">result.evaluation</span></code></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">result</span><span class="o">.</span><span class="n">evaluation</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Evaluation(energy=[-8.0], objective=[0.0], constraint_violations={&#39;onehot&#39;: [0.0]}, penalty=[{}])
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="conclusion">
+<h2><span class="section-number">1.3. </span>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this headline">#</a></h2>
+<p>We learned how to formulate it using JijModeling and how it works with OpenJij.</p>
+<p>Procedures are as follows.</p>
+<ol class="simple">
+<li><p>Write down the mathmatical model by using JijModeling</p></li>
+<li><p>Convert mathmatical model to QUBO by using JijModeling Transpiler</p></li>
+<li><p>compile QUBO and convert it to a dictionary type</p></li>
+<li><p>solve optimization problems using OpenJij’s solver such as <code class="docutils literal notranslate"><span class="pre">SASampler()</span></code></p></li>
+<li><p>decode solution by using <code class="docutils literal notranslate"><span class="pre">decode</span></code>.</p></li>
+</ol>
+<p>JijModeling is useful and powerful tool for formulationg and JijModeling Transpiler provides easy interface to convert mathmatical model to QUBO.
+When we use in conjunction with OpenJij, which provides a variety of solvers, it provides comfortable development experience.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./tutorial/en"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="../../reference/openjij/variable_type/index.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title"><code class="xref py py-mod docutils literal notranslate"><span class="pre">openjij.variable_type</span></code></p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="006-Machine_Learning_by_QA.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">2. </span>6-Machine Learning (QBoost) with Quantum Annealing</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Jij Inc.<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

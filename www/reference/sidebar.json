@@ -1,0 +1,58 @@
+{
+  "items": [
+    {
+      "items": [
+        {
+          "items": [
+            "reference/openjij/model/__init__",
+            "reference/openjij/model/chimera_model",
+            "reference/openjij/model/king_graph",
+            "reference/openjij/model/model"
+          ],
+          "label": "openjij.model",
+          "type": "category"
+        },
+        {
+          "items": [
+            {
+              "items": [
+                "reference/openjij/sampler/chimera_gpu/__init__",
+                "reference/openjij/sampler/chimera_gpu/base_gpu_chimera",
+                "reference/openjij/sampler/chimera_gpu/gpu_sa_sampler",
+                "reference/openjij/sampler/chimera_gpu/gpu_sqa_sampler"
+              ],
+              "label": "openjij.sampler.chimera_gpu",
+              "type": "category"
+            },
+            "reference/openjij/sampler/__init__",
+            "reference/openjij/sampler/csqa_sampler",
+            "reference/openjij/sampler/response",
+            "reference/openjij/sampler/sa_sampler",
+            "reference/openjij/sampler/sampler",
+            "reference/openjij/sampler/sqa_sampler"
+          ],
+          "label": "openjij.sampler",
+          "type": "category"
+        },
+        {
+          "items": [
+            "reference/openjij/utils/__init__",
+            "reference/openjij/utils/benchmark",
+            "reference/openjij/utils/decorator",
+            "reference/openjij/utils/graph_utils",
+            "reference/openjij/utils/res_convertor"
+          ],
+          "label": "openjij.utils",
+          "type": "category"
+        },
+        "reference/openjij/__init__",
+        "reference/openjij/_version",
+        "reference/openjij/variable_type"
+      ],
+      "label": "openjij",
+      "type": "category"
+    }
+  ],
+  "label": "Reference",
+  "type": "category"
+}
