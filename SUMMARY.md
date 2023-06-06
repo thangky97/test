@@ -8,4 +8,4 @@
 ***
 
 * [V-QUANTUM Book](v-quantum-book.md)
-* [Introduce](<README (1).md>)
+* [Introduce](readme.md)
