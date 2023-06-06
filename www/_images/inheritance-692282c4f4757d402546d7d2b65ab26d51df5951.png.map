@@ -1,9 +1,0 @@
-<map id="inheritance0d0edafc72" name="inheritance0d0edafc72">
-<area shape="rect" id="node1" title="Helper class that provides a standard way to create an ABC using" alt="" coords="7,5,79,31"/>
-<area shape="rect" id="node3" title="The abstract base class for dimod structured samplers." alt="" coords="139,5,228,31"/>
-<area shape="rect" id="node2" href="base_gpu_chimera/index.html#openjij.sampler.chimera_gpu.base_gpu_chimera.BaseGPUChimeraSampler" target="_top" title="Abstract GPUChimera Sampler." alt="" coords="285,5,476,31"/>
-<area shape="rect" id="node6" href="gpu_sa_sampler/index.html#openjij.sampler.chimera_gpu.gpu_sa_sampler.GPUChimeraSASampler" target="_top" title="Sampler with Simulated Annealing (SA) on GPU." alt="" coords="524,31,701,56"/>
-<area shape="rect" id="node4" href="../sampler/index.html#openjij.sampler.sampler.BaseSampler" target="_top" title="Base sampler class of python wrapper for cxxjij simulator." alt="" coords="129,55,237,80"/>
-<area shape="rect" id="node7" href="../sa_sampler/index.html#openjij.sampler.sa_sampler.SASampler" target="_top" title="Sampler with Simulated Annealing (SA)." alt="" coords="333,55,428,80"/>
-<area shape="rect" id="node5" title="Abstract base class for dimod samplers." alt="" coords="5,55,81,80"/>
-</map>

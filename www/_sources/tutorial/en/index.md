@@ -1,1 +1,0 @@
-# OpenJij Tutorials
