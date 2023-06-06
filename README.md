@@ -1,6 +1,6 @@
 # Introduce
 
-## gitboook-publishable-template
+## gitboook-vquantum
 
 template to use for publishing gitbooks to github.com
 
