@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # gitboook-publishable-template
 template to use for publishing gitbooks to github.com
 
@@ -32,3 +33,10 @@ git push origin master
 Yay!
 
 
+=======
+# Page 1
+
+## feufhdsfjsd
+
+<figure><img src=".gitbook/assets/msg-759278837-3320.jpg" alt=""><figcaption></figcaption></figure>
+>>>>>>> a267243cc8173a58f2e8c48dd281291e0770d193
