@@ -1,14 +1,14 @@
 {
-  "name": "gitbook-publishable-template",
+  "name": "gitbook-vquantum",
   "version": "1.0.0",
-  "description": "A template for publishing a Gitboo",
+  "description": "A gitbook vquantum",
   "main": "gulpfile.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rebeccapeltz/gitbook-publishable-template.git"
+    "url": "git+https://github.com/thangky97/vquantum.git"
   },
   "author": "Becky Peltz",
   "license": "MIT",
